@@ -33,32 +33,4 @@ class ApiHelper {
 
     return Response(isSuccess: true, result: list);
   }
-
-  static Future<String> getNoticeImage(String image) async {
-    var url = Uri.parse('${image}');
-    var response = await http.get(
-      url,
-      headers: {
-        'content-type': 'application/json',
-        'accept': 'application/json'
-      },
-    );
-
-    var body = response.body;
-    if (response.statusCode >= 400) {
-      return "Error";
-    }
-
-    List<String> list = [];
-
-    var decodedJson = jsonDecode(body);
-
-    if (decodedJson != null) {
-      for (var item in decodedJson) {
-        list.add(Notice.fromJson(item).imageUrl.toString());
-      }
-    }
-
-    return list.first;
-  }
 }

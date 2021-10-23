@@ -116,8 +116,8 @@ class _NoticeAllScreenState extends State<NoticeAllScreen> {
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                           fit: BoxFit.cover,
-                          height: 300,
-                          width: 300,
+                          height: 200,
+                          width: 200,
                           placeholder: (context, url) => Image(
                             image: AssetImage('assets/noticias.png'),
                             fit: BoxFit.cover,
@@ -128,13 +128,15 @@ class _NoticeAllScreenState extends State<NoticeAllScreen> {
                     SizedBox(
                       height: 5,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Titulo: ' + e.title.toString(),
-                          style: TextStyle(fontSize: 20),
+                    Center(
+                      child: Text(
+                        e.title.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),

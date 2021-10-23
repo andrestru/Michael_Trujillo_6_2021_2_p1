@@ -51,55 +51,83 @@ class _NoticeScreenState extends State<NoticeScreen> {
                 ),
               )),
           SizedBox(
-            height: 5,
+            height: 30,
           ),
-          Row(
+          Text(
+            'Autor',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          Column(
             children: [
               Text(
-                widget.notice.author.toString(), //CAMBIARRRRRRRRRRRR
-                style: TextStyle(fontSize: 20),
+                widget.notice.author.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
               ),
             ],
           ),
           SizedBox(
             height: 5,
           ),
-          Row(
-            children: [
-              Text(
-                widget.notice.content.toString(), //CAMBIARRRRRRRRRRRR
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
+          Text(
+            'Titulo',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          Text(
+            widget.notice.title.toString(),
+            style: TextStyle(fontSize: 20),
           ),
           SizedBox(
             height: 5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Text(
+            'Contenido:',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          Text(
+            widget.notice.content.toString(),
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            'Fecha',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          Column(
             children: [
               Text(
                 widget.notice.date.toString(),
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 18),
               ),
             ],
           ),
           SizedBox(
             height: 5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.notice.readMoreUrl.toString(),
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
+          Text(
+            'Hora',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -111,29 +139,30 @@ class _NoticeScreenState extends State<NoticeScreen> {
           SizedBox(
             height: 5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.notice.title.toString(),
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
+          Text(
+            'Url',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          Text(
+            widget.notice.url.toString(),
+            style: TextStyle(fontSize: 20),
           ),
           SizedBox(
             height: 5,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.notice.url.toString(),
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
+          Text(
+            'Leer más...',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
-          SizedBox(
-            height: 5,
+          Text(
+            widget.notice.readMoreUrl.toString(),
+            style: TextStyle(fontSize: 20),
           ),
         ],
       )),
