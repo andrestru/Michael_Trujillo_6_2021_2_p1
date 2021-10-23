@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:michael_trujillo_6_2021_2_p1/components/loader_component.dart';
 import 'package:michael_trujillo_6_2021_2_p1/helpers/api_helper.dart';
@@ -25,7 +26,6 @@ class _NoticeAllScreenState extends State<NoticeAllScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getNotice();
   }
@@ -57,22 +57,28 @@ class _NoticeAllScreenState extends State<NoticeAllScreen> {
       _showloader = true;
     });
 
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showloader = false;
+      });
+
+      await showAlertDialog(
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
+      return;
+    }
+
     Response response = await ApiHelper.getNotice(widget.type_notice);
 
     setState(() {
       _showloader = false;
     });
 
-    if (!response.isSuccess) {
-      await showAlertDialog(
-          context: context,
-          title: 'error',
-          message: response.message,
-          actions: <AlertDialogAction>[
-            AlertDialogAction(key: null, label: 'Aceptar'),
-          ]);
-      return;
-    }
     setState(() {
       _notice = response.result;
     });
@@ -148,6 +154,13 @@ class _NoticeAllScreenState extends State<NoticeAllScreen> {
     );
   }
 
+  void _removeFilter() {
+    setState(() {
+      _isFilter = false;
+    });
+    _getNotice();
+  }
+
   void _showFilter() {
     showDialog(
         context: context,
@@ -180,18 +193,11 @@ class _NoticeAllScreenState extends State<NoticeAllScreen> {
             actions: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('cancelar')),
-              TextButton(onPressed: () => _filter, child: Text('Filtrar'))
+                  child: Text('Cancelar')),
+              TextButton(onPressed: () => _filter(), child: Text('Filtrar')),
             ],
           );
         });
-  }
-
-  void _removeFilter() {
-    setState(() {
-      _isFilter = false;
-    });
-    _getNotice();
   }
 
   void _filter() {
@@ -205,7 +211,7 @@ class _NoticeAllScreenState extends State<NoticeAllScreen> {
       if (notice.title
           .toString()
           .toLowerCase()
-          .contains(_search.toLowerCase())) {
+          .contains(_search.toString().toLowerCase())) {
         filteredlist.add(notice);
       }
     }
